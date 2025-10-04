@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Websockets Client Side</title>
+    <style src="style.css"></style>
+</head>
+
+<body>
+    <h1> Iam learning websockets</h1>
+    <form id="form">
+
+        <input id="input" placeholder="Enter the message">
+        <button type="submit" class="submit-btn">Send</button>
+    </form>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+
+        const form = document.getElementById('form');
+        const input = document.getElementById('input');
+        socket.emit("hello", " Man");
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            if (input.value) {
+                socket.emit('chat message', input.value);
+                input.value = '';
+            }
+        });
+
+        socket.on('hello', (arg1, arg2, arg3) => {
+            console.log(arg1); // 1
+            console.log(arg2); // '2'
+            console.log(arg3); // { 3: '4', 5: ArrayBuffer (1) [ 6 ] }
+        });
+    </script>
+</body>
+
+</html>
